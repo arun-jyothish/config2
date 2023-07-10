@@ -1,0 +1,7 @@
+# i3 lock script
+
+# i3lock
+rm /tmp/tempshot.png
+scrot /tmp/tempshot.png
+convert /tmp/tempshot.png -blur 0x9 /tmp/screenshot.png
+i3lock -i /tmp/screenshot.png
