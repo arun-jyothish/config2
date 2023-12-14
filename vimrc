@@ -9,7 +9,6 @@ set smartcase
 inoremap {<CR> {<CR>}<C-o>O
 set ic
 colorscheme pablo 
-set nohlsearch
 set cindent
 set autoindent
 set smartindent
@@ -40,6 +39,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'ycm-core/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -80,7 +80,10 @@ Plugin 'jiangmiao/auto-pairs'
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
 " All of your Plugins must be added before the following line
+" Plugin  'vim-scripts/Conque-GDB'
+Plugin 'vim-scripts/gdbmgr'
 call vundle#end()            " required
+
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -99,7 +102,36 @@ let g:move_key_modifier_visualmode = 'S'
 let g:move_key_modifier = 'C'
 let g:move_normal_option = 'C'
 let g:snipMate = { 'snippet_version' : 1 }
+"----------------------------------------------------"
+function! __doxygen()
+	Plugin 'vim-scripts/vim-doxygen-toolkit'
+	" Set a custom mapping for the Doxygen Toolkit
+	let g:DoxygenToolkit_mapping = '<Leader>d'
+	" Customize the Doxygen comment format
+	let g:DoxygenToolkit_comment_format = "/**"
+endfunction
+"----------------------------------------------------"
+
+" Configure YCM pop-up documentation without split window
+let g:ycm_autoclose_preview_window_after_completion = 0
+
+" Use K key to show documentation without creating a split window
+nnoremap <silent> K :YcmCompleter GoTo<CR>
+
+nmap <leader>d <plug>(YCMHover)
+
+" Set a custom mapping to close the YCM pop-up window
+nnoremap <silent> <Leader>w :YcmCompleter ClosePreviewWindow<CR>
+
+" Set YCM auto-popup inline documentation timeout to 5 seconds
+let g:ycm_auto_trigger_show_doc = 1
+
+
+"replace visual ....
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-
+source /home/arun/.vim/cscope.maps/cscope_maps.vim
+"!find . -name '*.c' -o -name '*.h' -o -name '*.cpp' -o -name '*.hh' -o -name '*.lds' -o -name '*.S' -o -name Makefile -o -name '*.cdl' -o -name '*.in' -o -name 'Kconfig'> cscope.files
+"
+Plugin 'majutsushi/tagbar'
